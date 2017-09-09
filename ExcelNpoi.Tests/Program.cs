@@ -12,6 +12,11 @@ namespace ExcelNpoi.Tests
         static void Main(string[] args)
         {
 
+            ExcelHelper ehelper = new ExcelHelper(@"C:\Users\Administrator.PC-20170513BRYJ\Desktop\百万发.xlsx", "20170909", ExcelOperateMode.open);
+            ehelper.Open();
+            var table = ehelper.GetListFromSheet();
+
+            Console.Read();
             DataTable dt = new DataTable();
             dt.Columns.Add("name1");
             dt.Columns.Add("name2");

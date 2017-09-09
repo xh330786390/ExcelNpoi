@@ -413,6 +413,74 @@ namespace ExcelNpoi
             }
         }
         #endregion
+
+
+
+        static DataTable RenderFromExcel(Stream excelFileStream)
+        {
+            using (excelFileStream)
+            {
+                IWorkbook workbook = new XSSFWorkbook(excelFileStream);
+                {
+                    ISheet sheet = workbook.GetSheetAt(0);
+                    {
+                        DataTable table = new DataTable();
+
+                        IRow headerRow = sheet.GetRow(0);//第一行为标题行  
+                        int cellCount = headerRow.LastCellNum;//LastCellNum = PhysicalNumberOfCells  
+                        int rowCount = sheet.LastRowNum;//LastRowNum = PhysicalNumberOfRows - 1  
+
+                        //handling header.  
+                        for (int i = headerRow.FirstCellNum; i < cellCount; i++)
+                        {
+                            DataColumn column = new DataColumn(headerRow.GetCell(i).StringCellValue);
+                            table.Columns.Add(column);
+                        }
+
+                        for (int i = (sheet.FirstRowNum + 1); i <= rowCount; i++)
+                        {
+                            IRow row = sheet.GetRow(i);
+                            DataRow dataRow = table.NewRow();
+
+                            if (row != null)
+                            {
+                                for (int j = row.FirstCellNum; j < cellCount; j++)
+                                {
+                                    //if (row.GetCell(j) != null)
+                                    //    dataRow[j] = GetCellValue(row.GetCell(j));
+                                }
+                            }
+
+                            table.Rows.Add(dataRow);
+                        }
+                        return table;
+
+                    }
+                }
+            }
+        }
+
+
+        //public static bool HasData(Stream excelFileStream)
+        //{
+        //    using (excelFileStream)
+        //    {
+        //        using (IWorkbook workbook = new HSSFWorkbook(excelFileStream))
+        //        {
+        //            if (workbook.NumberOfSheets > 0)
+        //            {
+        //                using (ISheet sheet = workbook.GetSheetAt(0))
+        //                {
+        //                    return sheet.PhysicalNumberOfRows > 0;
+        //                }
+        //            }
+        //        }
+        //    }
+        //    return false;
+        //}  
+
     }
+
+
 
 }

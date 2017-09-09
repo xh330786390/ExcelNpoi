@@ -59,6 +59,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExcelHelper.cs" />
     <Compile Include="ExcelNpoi2003.cs" />
     <Compile Include="ExcelNpoi2007.cs" />
     <Compile Include="IExcelNpoi.cs" />
