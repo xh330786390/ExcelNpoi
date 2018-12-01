@@ -37,6 +37,3 @@ namespace ExcelNpoi
         void ExportToExcel(DataTable dt, string file, string header = null, string commnet = null, int headRows = 0);
     }
 }
-
-
-
